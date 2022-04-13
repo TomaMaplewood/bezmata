@@ -2,11 +2,12 @@ import os
 
 from docx import Document
 from word_finder import WordFinder
-
+from options_parser import parse_options
 
 if __name__=="__main__":
-    word_finder = WordFinder()
 
+    word_finder = WordFinder(parse_options("options.txt"))
+    #print(parse_options("options.txt"))
     #Recuired to have environment variable DOC_PATH where you can define path to document
     #It is temporary measure
 

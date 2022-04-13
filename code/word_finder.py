@@ -1,31 +1,21 @@
 import re
 
 class WordFinder:
-    phrases = [["нажати", "на", "форм"],
-               ["[Сс]озда", "отчёт"],
-               ["[Уу]каз", "ответственн"],
-               ["[Тт]екущ", "дат"],
-               ["[Пп]ечата"],
-               ["[Пп]оказыва", "сообщен"]]
-    patterns = []
-    re_pattern = "[^[ ,\:,\.,\,,\!,\?,(,),\[,\],\;]"
-    def __init__(self):
-        for phrase in self.phrases:
-            temp_dict = []
-            for word in phrase:
-                temp_dict.append(re.compile(f"(?i){word}{self.re_pattern}"))
-            self.patterns.append(temp_dict)
+    def __init__(self, patterns:list):
+        self.patterns = []
+        for pattern_line in patterns:
+            new_pattern = []
+            for pattern in pattern_line:
+                new_pattern.append(re.compile(pattern))
+            self.patterns.append(new_pattern)
         self.counter = [0,0,0,0,0,0]
 
-
     def __continue_find(self, input_line:list, pattern_num:int, start_word_num:int = 0):
-        print(start_word_num,'\n')
         if len(self.patterns[pattern_num]) == 1:
             return True
         current_pattern = 1
         for i in range(start_word_num, len(input_line)):
-            print(i,pattern_num,current_pattern,'\n',sep=' ')
-            if self.patterns[pattern_num][current_pattern].match(input_line[i]) is None:
+            if self.patterns[pattern_num][current_pattern].match(input_line[i]) is not None:
                 if current_pattern == len(self.patterns[pattern_num]) - 1:
                     return True
                 else:
