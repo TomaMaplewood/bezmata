@@ -46,7 +46,7 @@ class WordFinder:
 
         pass
 
-    def get_list_results(self):
+    def get_result_by_files(self):
         return self.counter
 
     def reset_results(self):
@@ -58,7 +58,7 @@ class WordFinder:
     def next_file(self):
         self.file_num += 1
 
-    def summarise(self) -> list:
+    def get_summary(self) -> list:
         _sum = [0] * len(self.patterns)
         for i in range(len(self.patterns)):
             for j in range(len(self.counter)):
@@ -66,3 +66,12 @@ class WordFinder:
 
         return _sum
 
+    def get_result_by_rules(self)->list:
+        _sum = []
+        for i in range(len(self.patterns)):
+            current_sum = [0] * len(self.counter)
+            for j in range(len(self.counter)):
+                current_sum[j] = self.counter[j][i]
+
+            _sum.append(current_sum)
+        return _sum
