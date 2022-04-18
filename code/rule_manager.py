@@ -1,3 +1,6 @@
+from docx import Document
+
+
 class SingleRule:
     def __init__(self, rule: str, appearance: list):
         self.rule = rule
@@ -31,3 +34,15 @@ class PairRule:
             return True
         else:
             return False
+
+class RuleWriter:
+    def __init__(self, rule_list: list, file_name: str):
+        self.rule_list = rule_list
+        self.file_name = file_name
+        self.docx = Document()
+
+    def rule_appear(self, num: int):
+        self.docx.add_paragraph(self.rule_list[num])
+
+    def __del__(self):
+        self.docx.save(self.file_name)

@@ -4,13 +4,14 @@ from docx import Document
 
 from word_finder import WordFinder
 from options_parser import parse_options
-from rule_manager import SingleRule, PairRule
+from rule_manager import SingleRule, PairRule, RuleWriter
 
 if __name__=="__main__":
     options, text_rules = parse_options("options.txt")
 
     #FIND_DEPTH is maximum interval in text between searching words in phrase
-    word_finder = WordFinder(options, int(os.getenv("FIND_DEPTH", 3)))
+    #SAVE_PATH is full name of file where you want to save results
+    word_finder = WordFinder(options, int(os.getenv("FIND_DEPTH", 3)), RuleWriter(text_rules, os.getenv("SAVE_PATH")))
 
     #MIN_NUM is minimal frequency for candidates
     minimal_number = int(os.getenv("MIN_NUM", 1))
