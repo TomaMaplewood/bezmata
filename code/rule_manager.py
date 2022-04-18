@@ -45,4 +45,8 @@ class RuleWriter:
         self.docx.add_paragraph(self.rule_list[num])
 
     def __del__(self):
-        self.docx.save(self.file_name)
+        try:
+            self.docx.save(self.file_name)
+        except Exception as e:
+            print(f"Can not create or open file to save result because of {str(e)}")
+            raise e
