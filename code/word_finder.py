@@ -1,8 +1,11 @@
 import re
+from rule_manager import RuleWriter
+
 
 class WordFinder:
-    def __init__(self, patterns:list, depth:int):
+    def __init__(self, patterns:list, depth:int, rule_writer: RuleWriter):
         self.patterns = []
+        self.rule_writer = rule_writer
         self.depth = depth
         for pattern_line in patterns:
             new_pattern = []
@@ -43,6 +46,7 @@ class WordFinder:
                 if self.patterns[i][0].match(words[j]) is not None:
                     if self.__continue_find(words, i, j):
                         self.counter[self.file_num][i] += 1
+                        self.rule_writer.rule_appear(i)
 
         pass
 
